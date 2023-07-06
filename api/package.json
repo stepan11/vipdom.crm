@@ -1,0 +1,11 @@
+{
+  "name": "vipdom.crm",
+  "version": "1.0.0",
+  "description": "vipdom crm",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
+}
