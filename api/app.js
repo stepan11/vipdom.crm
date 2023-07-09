@@ -33,6 +33,20 @@ app.post("/newuser", (req,res)=>{
     })
 })
 
+// get all users
+
+app.get("/users", (req, res)=>{
+    User.find()
+    .then((users)=>{
+        console.log("All users:", users);
+        res.status(200).json(users)
+    })
+    .catch((err)=>{
+        console.error("Error retrieving users:", err)
+        res.status(400).json(err)
+    })
+})
+
 app.listen(port, ()=>{
     console.log(`Server listening on ${port}`);
 })
