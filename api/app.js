@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose  = require('mongoose');
-const {User, Customer, Property} = require('./mongoose');
+const User = require('./model/user.model')
+const Customer = require('./model/customer.model')
+const Property = require('./model/property.model')
 
+require('./mongoose');
 require('dotenv').config()
 
 const app = express();
