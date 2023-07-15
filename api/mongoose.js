@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+require('dotenv').config()
 
 // connect to the database
-mongoose.connect('mongodb+srv://admin:SL1SoDVbFEwTOyHX@vipdom.k1010fw.mongodb.net/vipdom', {
+mongoose.connect(process.env.MONGO_CONNECTION_STRING, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })

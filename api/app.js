@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose  = require('mongoose');
 const {User, Customer, Property} = require('./mongoose');
 
+require('dotenv').config()
 
 const app = express();
 app.use(express.json())
