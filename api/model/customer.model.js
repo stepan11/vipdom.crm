@@ -20,6 +20,8 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+}, {
+    timestamps: true,
 })
 
 const Customer = mongoose.model('Customer', customerSchema)

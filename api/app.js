@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose  = require('mongoose');
+// const mongoose  = require('mongoose');
 const User = require('./model/user.model')
 const Customer = require('./model/customer.model')
 const Property = require('./model/property.model')
@@ -39,9 +39,45 @@ app.post("/newuser", (req,res)=>{
 })
 
 // assign customer to the user
-app.post("/addcustomertouser", (req,res)=>{
+app.post("/addcustomertouser", async (req,res) => {
     const {userId, customerId} = req.body
 
+    const user = await User.findOne({id: userId})
+    .then(user=>{
+        if(user) {
+            return user
+        } else {
+            console.log('user does not exist');
+        }
+    })
+    .catch(err=>{
+        console.error("Error finding user:", err)
+    })
+
+    const customer = await Customer.findOne({id: customerId})
+    .then(customer => {
+        if(customer) {
+            return customer
+        } else {
+            console.log('customer does not exist');
+        }
+    })
+    .catch(err=>{
+        console.error("Error finding customer:", err)
+    })
+
+    if(!user.customers.includes(customer.id)) {
+        user.customers.push(customer.id)
+        user.save()
+        .then(user=>{
+        res.status(200).json(user)
+        console.log('the customer has been assigned to the user')
+        })
+        .catch(err=>{'Something went wrong:', console.error(err)})
+    } else {
+        res.status(400).json(user)
+        console.log('the customer is already assigned to the user', user.customers);
+    }
 })
 
 // create a new customer

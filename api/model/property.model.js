@@ -15,6 +15,8 @@ const propertySchema = new mongoose.Schema({
         type: String,
         required: true
     }
+}, {
+    timestamps: true,
 })
 
 const Property = mongoose.model('Property', propertySchema)
