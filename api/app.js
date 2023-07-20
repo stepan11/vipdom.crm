@@ -136,6 +136,30 @@ app.get("/users", (req, res)=>{
     })
 })
 
+// read a user
+
+app.get("/user/:id", async (req, res) => {
+    const userId = req.params.id
+
+    try{
+    if(userId.length != 24) {
+        console.error("user ID is not valid")
+        return res.status(404).json({ message: 'user ID is not valid'})
+    }
+
+    const user = await User.findById(userId)
+
+    if(!user) {
+        return res.status(404).json({ message: 'user is not found'})
+    }
+
+    res.status(200).json(user)
+    } catch(err) {
+        console.error("Error retrieving user:", err)
+        res.status(400).json(err)
+    }
+})
+
 // get all customers
 app.get("/customers", (req, res)=>{
     Customer.find()
@@ -149,6 +173,30 @@ app.get("/customers", (req, res)=>{
     })
 })
 
+// read a customer
+
+app.get("/customer/:id", async (req, res) => {
+    const customerId = req.params.id
+
+    try{
+    if(customerId.length != 24) {
+        console.error("customer ID is not valid")
+        return res.status(404).json({ message: 'customer ID is not valid'})
+    }
+
+    const customer = await Customer.findById(customerId)
+
+    if(!customer) {
+        return res.status(404).json({ message: 'customer is not found'})
+    }
+
+    res.status(200).json(customer)
+    } catch(err) {
+        console.error("Error retrieving customer:", err)
+        res.status(400).json(err)
+    }
+})
+
 // get all properties
 app.get("/properties", (req, res)=>{
     Property.find()
@@ -160,6 +208,30 @@ app.get("/properties", (req, res)=>{
         console.error("Error retrieving properties:", err)
         res.status(400).json(err)
     })
+})
+
+// read a property
+
+app.get("/property/:id", async (req, res) => {
+    const propertyId = req.params.id
+
+    try{
+    if(propertyId.length != 24) {
+        console.error("property ID is not valid")
+        return res.status(404).json({ message: 'property ID is not valid'})
+    }
+
+    const property = await Property.findById(propertyId)
+
+    if(!property) {
+        return res.status(404).json({ message: 'property is not found'})
+    }
+
+    res.status(200).json(property)
+    } catch(err) {
+        console.error("Error retrieving property:", err)
+        res.status(400).json(err)
+    }
 })
 
 app.listen(port, ()=>{
