@@ -1,29 +1,32 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 // customer schema
-const customerSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema(
+  {
     id: {
-        type: Number,
-        required: true,
-        unique: true
+      type: Number,
+      required: true,
+      unique: true,
     },
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true,
     },
     type: {
-        type: String,
-        required: true
-    }
-}, {
+      type: String,
+      required: true,
+    },
+  },
+  {
     timestamps: true,
-})
+  }
+);
 
-const Customer = mongoose.model('Customer', customerSchema)
+const Customer = mongoose.model('Customer', customerSchema);
 
-module.exports = Customer
+module.exports = Customer;
