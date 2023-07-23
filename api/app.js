@@ -4,6 +4,8 @@ const User = require('./model/user.model');
 const Customer = require('./model/customer.model');
 const Property = require('./model/property.model');
 
+const cors = require('cors');
+
 require('./mongoose');
 require('dotenv').config();
 
@@ -132,7 +134,7 @@ app.post('/newproperty', (req, res) => {
 });
 
 // get all users
-app.get('/users', (req, res) => {
+app.get('/users', cors(), (req, res) => {
     User.find()
         .then((users) => {
             console.log('All users:', users);
@@ -169,7 +171,7 @@ app.get('/user/:id', async (req, res) => {
 });
 
 // get all customers
-app.get('/customers', (req, res) => {
+app.get('/customers', cors(), (req, res) => {
     Customer.find()
         .then((customers) => {
             console.log('All customers:', customers);
@@ -208,7 +210,7 @@ app.get('/customer/:id', async (req, res) => {
 });
 
 // get all properties
-app.get('/properties', (req, res) => {
+app.get('/properties', cors(), (req, res) => {
     Property.find()
         .then((properties) => {
             console.log('All properties:', properties);
