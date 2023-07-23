@@ -147,7 +147,6 @@ app.get('/users', cors(), (req, res) => {
 });
 
 // read a user
-
 app.get('/user/:id', async (req, res) => {
     const userId = req.params.id;
 
@@ -170,6 +169,28 @@ app.get('/user/:id', async (req, res) => {
     }
 });
 
+// delete a user
+app.delete('/deleteuser/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        const deletedUser = await User.findByIdAndDelete(userId);
+
+        if (!deletedUser) {
+            console.log('User not found');
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({
+            message: 'User deleted successfully',
+            deletedUser,
+        });
+    } catch (err) {
+        console.error('something went wrong', err);
+        res.status(500).json({ message: 'something went wrong', err });
+    }
+});
+
 // get all customers
 app.get('/customers', cors(), (req, res) => {
     Customer.find()
@@ -184,7 +205,6 @@ app.get('/customers', cors(), (req, res) => {
 });
 
 // read a customer
-
 app.get('/customer/:id', async (req, res) => {
     const customerId = req.params.id;
 
@@ -209,6 +229,28 @@ app.get('/customer/:id', async (req, res) => {
     }
 });
 
+// delete a customer
+app.delete('/deletecustomer/:id', async (req, res) => {
+    const customerId = req.params.id;
+
+    try {
+        const deletedCustomer = await Customer.findByIdAndDelete(customerId);
+
+        if (!deletedCustomer) {
+            console.log('Customer not found');
+            return res.status(404).json({ message: 'Customer not found' });
+        }
+
+        res.status(200).json({
+            message: 'Customer deleted successfully',
+            deletedCustomer,
+        });
+    } catch (err) {
+        console.error('something went wrong', err);
+        res.status(500).json({ message: 'something went wrong', err });
+    }
+});
+
 // get all properties
 app.get('/properties', cors(), (req, res) => {
     Property.find()
@@ -223,7 +265,6 @@ app.get('/properties', cors(), (req, res) => {
 });
 
 // read a property
-
 app.get('/property/:id', async (req, res) => {
     const propertyId = req.params.id;
 
@@ -232,7 +273,7 @@ app.get('/property/:id', async (req, res) => {
             console.error('property ID is not valid');
             return res
                 .status(404)
-                .json({ message: 'property ID is not valid' });
+                .json({ message: 'property"s ID is not valid' });
         }
 
         const property = await Property.findById(propertyId);
@@ -248,6 +289,29 @@ app.get('/property/:id', async (req, res) => {
     }
 });
 
+// delete a property
+app.delete('/deleteproperty/:id', async (req, res) => {
+    const propertyId = req.params.id;
+
+    try {
+        const deletedProperty = await Property.findByIdAndDelete(propertyId);
+
+        if (!deletedProperty) {
+            console.log('Property not found');
+            return res.status(404).json({ message: 'Property not found' });
+        }
+
+        res.status(200).json({
+            message: 'Property deleted successfully',
+            deletedProperty,
+        });
+    } catch (err) {
+        console.error('something went wrong', err);
+        res.status(500).json({ message: 'something went wrong', err });
+    }
+});
+
+// listening to server
 app.listen(port, () => {
     console.log(`Server listening on ${port}`);
 });
