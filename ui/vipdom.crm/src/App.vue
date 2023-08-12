@@ -4,6 +4,9 @@
     <CreateProperty />
     <CreateCustomer />
     <CreateUser />
+    <AssignCustomerToUser />
+
+    <!-- Retrieve all customers -->
     <div>
         <h1>All customers</h1>
         <ul>
@@ -12,6 +15,8 @@
             </li>
         </ul>
     </div>
+
+    <!-- Retrieve all users -->
     <div>
         <h1>All users</h1>
         <ul>
@@ -20,6 +25,8 @@
             </li>
         </ul>
     </div>
+
+    <!-- Retrieve all properties -->
     <div>
         <h1>All properties</h1>
         <ul>
@@ -40,67 +47,6 @@
             </li>
         </ul>
     </div>
-
-    <div class="form-container">
-        <h2>Create a new property</h2>
-        <form @submit.prevent="createProperty">
-            <div class="form-group">
-                <label class="label" for="name">Name:</label>
-                <input
-                    class="input"
-                    v-model="propertyData.name"
-                    type="text"
-                    id="name"
-                    required
-                />
-            </div>
-
-            <div class="form-group">
-                <label class="label" for="id">ID:</label>
-                <input
-                    class="input"
-                    v-model="propertyData.id"
-                    type="number"
-                    id="id"
-                    required
-                />
-            </div>
-
-            <div class="form-group">
-                <label class="label" for="type">Type:</label>
-                <select
-                    class="input"
-                    v-model="propertyData.type"
-                    id="type"
-                    required
-                >
-                    <option value="house">House</option>
-                    <option value="appartment">Appartment</option>
-                    <option value="spot">Spot</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="label" for="price">Price:</label>
-                <input
-                    class="input"
-                    v-model="propertyData.priceUSD"
-                    type="number"
-                    id="priceUSD"
-                    required
-                />
-            </div>
-
-            <button class="submit-button" type="submit">
-                Create a property
-            </button>
-        </form>
-
-        <success-modal v-if="showModal" @close="closeModal">
-            <template #header> Success! </template>
-            <template #body> User created successfully. </template>
-        </success-modal>
-    </div>
 </template>
 
 <script>
@@ -108,17 +54,17 @@
 import CreateProperty from '@/components/CreateProperty.vue';
 import CreateCustomer from '@/components/CreateCustomer.vue';
 import CreateUser from '@/components/CreateUser.vue';
-import SuccessModal from './components/SuccessModal.vue';
+import AssignCustomerToUser from './components/AssignCustomerToUser.vue';
 import axios from 'axios';
 
 export default {
     name: 'App',
     components: {
         // HelloWorld,
-        SuccessModal,
         CreateProperty,
         CreateCustomer,
         CreateUser,
+        AssignCustomerToUser,
     },
     data() {
         return {
@@ -140,8 +86,8 @@ export default {
             showModal: false,
         };
     },
-    created() {
-        axios
+    async created() {
+        await axios
             .get('http://localhost:3000/customers')
             .then((response) => {
                 this.customers = response.data;
@@ -149,7 +95,7 @@ export default {
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
-        axios
+        await axios
             .get('http://localhost:3000/users')
             .then((response) => {
                 this.users = response.data;
@@ -157,7 +103,7 @@ export default {
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
-        axios
+        await axios
             .get('http://localhost:3000/properties')
             .then((response) => {
                 this.properties = response.data;

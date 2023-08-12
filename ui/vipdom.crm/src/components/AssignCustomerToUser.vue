@@ -1,56 +1,47 @@
 <template>
     <div class="form-container">
-        <h2>Create a new property</h2>
-        <form @submit.prevent="createProperty">
+        <h2>Assign customer to the user</h2>
+        <form @submit.prevent="assignCustomerToUser">
             <div class="form-group">
-                <label class="label" for="name">Name:</label>
-                <input
-                    class="input"
-                    v-model="propertyData.name"
-                    type="text"
-                    id="name"
-                    required
-                />
-            </div>
-
-            <div class="form-group">
-                <label class="label" for="id">ID:</label>
-                <input
-                    class="input"
-                    v-model="propertyData.id"
-                    type="number"
-                    id="id"
-                    required
-                />
-            </div>
-
-            <div class="form-group">
-                <label class="label" for="type">Type:</label>
+                <label class="label" for="users">Users:</label>
                 <select
+                    name="user"
+                    id="user"
                     class="input"
-                    v-model="propertyData.type"
-                    id="type"
+                    v-model="customerAndUserData.userId"
                     required
                 >
-                    <option value="house">House</option>
-                    <option value="appartment">Appartment</option>
-                    <option value="spot">Spot</option>
+                    <option
+                        value="user.id"
+                        v-for="user in users"
+                        :key="user.id"
+                    >
+                        User: {{ user.id }}
+                    </option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="label" for="price">Price:</label>
-                <input
+                <label class="label" for="customers">Customers:</label>
+                <select
+                    name="customer"
+                    id="customer"
                     class="input"
-                    v-model="propertyData.priceUSD"
-                    type="number"
-                    id="priceUSD"
+                    v-model="customerAndUserData.customerId"
                     required
-                />
+                >
+                    <option
+                        value="customer.id"
+                        v-for="customer in customers"
+                        :key="customer.id"
+                    >
+                        Customer: {{ customer.id }}
+                    </option>
+                </select>
             </div>
 
             <button class="submit-button" type="submit">
-                Create a property
+                Assign customer to the user
             </button>
         </form>
 
@@ -71,19 +62,41 @@ export default {
     },
     data() {
         return {
-            propertyData: {
-                id: '',
-                name: '',
-                type: '',
-                priceUSD: '',
+            customers: [],
+            users: [],
+            customerAndUserData: {
+                userId: '',
+                customerId: '',
             },
             showModal: false,
         };
     },
+    created() {
+        axios
+            .get('http://localhost:3000/customers')
+            .then((response) => {
+                this.customers = response.data;
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+
+        axios
+            .get('http://localhost:3000/users')
+            .then((response) => {
+                this.users = response.data;
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+    },
     methods: {
-        async createProperty() {
+        async assignCustomerToUser() {
             await axios
-                .post('http://localhost:3000/newproperty', this.propertyData)
+                .post(
+                    'http://localhost:3000/customerAndUserData',
+                    this.propertyData
+                )
                 .then((response) => {
                     console.log(response);
                 })
@@ -92,10 +105,8 @@ export default {
                 });
 
             // Clear form fields after successful submission
-            this.propertyData.name = '';
-            this.propertyData.type = '';
-            this.propertyData.id = '';
-            this.propertyData.priceUSD = '';
+            this.customers = '';
+            this.users = '';
 
             // Open success modal
             this.showModal = true;
@@ -106,7 +117,6 @@ export default {
     },
 };
 </script>
-
 <style scoped>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
