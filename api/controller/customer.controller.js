@@ -5,9 +5,10 @@ const cors = require('cors');
 
 const controller = express();
 controller.use(express.json());
+controller.use(cors());
 
 // create a new customer
-controller.post('/newcustomer', (req, res) => {
+controller.post('/newcustomer', cors(), async (req, res) => {
     const { id, name, email, type } = req.body;
 
     const newCustomer = new Customer({
@@ -17,7 +18,7 @@ controller.post('/newcustomer', (req, res) => {
         type,
     });
 
-    newCustomer
+    await newCustomer
         .save()
         .then((customer) => {
             console.log('customer saved successfully');
@@ -30,7 +31,7 @@ controller.post('/newcustomer', (req, res) => {
 });
 
 // read a customer
-controller.get('/customer/:id', async (req, res) => {
+controller.get('/customer/:id', cors(), async (req, res) => {
     const customerId = req.params.id;
 
     try {
@@ -55,7 +56,7 @@ controller.get('/customer/:id', async (req, res) => {
 });
 
 // delete a customer
-controller.delete('/deletecustomer/:id', async (req, res) => {
+controller.delete('/deletecustomer/:id', cors(), async (req, res) => {
     const customerId = req.params.id;
 
     try {
@@ -90,7 +91,7 @@ controller.get('/customers', cors(), (req, res) => {
 });
 
 // assign customer to the user
-controller.post('/addcustomertouser', async (req, res) => {
+controller.post('/addcustomertouser', cors(), async (req, res) => {
     const { userId, customerId } = req.body;
 
     const user = await User.findOne({ id: userId })

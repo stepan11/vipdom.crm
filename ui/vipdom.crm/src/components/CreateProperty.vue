@@ -1,46 +1,4 @@
 <template>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <CreateProperty />
-    <CreateCustomer />
-    <CreateUser />
-    <div>
-        <h1>All customers</h1>
-        <ul>
-            <li v-for="customer in customers" :key="customer._id">
-                {{ customer.name }} ID : {{ customer._id }}
-            </li>
-        </ul>
-    </div>
-    <div>
-        <h1>All users</h1>
-        <ul>
-            <li v-for="user in users" :key="user._id">
-                {{ user.name }} ID : {{ user._id }}
-            </li>
-        </ul>
-    </div>
-    <div>
-        <h1>All properties</h1>
-        <ul>
-            <li v-for="property in properties" :key="property._id">
-                {{ property.name }} ID : {{ property._id }}
-                <p>
-                    Price:
-                    {{
-                        property.priceUSD
-                            ? new Intl.NumberFormat('en-US', {
-                                  style: 'currency',
-                                  currency: 'USD',
-                                  maximumFractionDigits: 0,
-                              }).format(property.priceUSD)
-                            : 'not selected'
-                    }}
-                </p>
-            </li>
-        </ul>
-    </div>
-
     <div class="form-container">
         <h2>Create a new property</h2>
         <form @submit.prevent="createProperty">
@@ -98,27 +56,18 @@
 
         <success-modal v-if="showModal" @close="closeModal">
             <template #header> Success! </template>
-            <template #body> User created successfully. </template>
+            <template #body> Property created successfully. </template>
         </success-modal>
     </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue';
-import CreateProperty from '@/components/CreateProperty.vue';
-import CreateCustomer from '@/components/CreateCustomer.vue';
-import CreateUser from '@/components/CreateUser.vue';
-import SuccessModal from './components/SuccessModal.vue';
 import axios from 'axios';
+import SuccessModal from './SuccessModal.vue';
 
 export default {
-    name: 'App',
     components: {
-        // HelloWorld,
         SuccessModal,
-        CreateProperty,
-        CreateCustomer,
-        CreateUser,
     },
     data() {
         return {
@@ -131,52 +80,10 @@ export default {
                 type: '',
                 priceUSD: '',
             },
-            customerData: {
-                id: 33,
-                name: 'Stephanio123123',
-                email: 'v894621323423312335sdm@ml.com',
-                type: 'buyer',
-            },
             showModal: false,
         };
     },
-    created() {
-        axios
-            .get('http://localhost:3000/customers')
-            .then((response) => {
-                this.customers = response.data;
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-        axios
-            .get('http://localhost:3000/users')
-            .then((response) => {
-                this.users = response.data;
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-        axios
-            .get('http://localhost:3000/properties')
-            .then((response) => {
-                this.properties = response.data;
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-            });
-    },
     methods: {
-        async sendRequest() {
-            await axios
-                .post('http://localhost:3000/newcustomer', this.customerData)
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((e) => {
-                    console.error(e);
-                });
-        },
         async createProperty() {
             await axios
                 .post('http://localhost:3000/newproperty', this.propertyData)
@@ -203,7 +110,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;

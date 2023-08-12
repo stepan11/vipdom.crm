@@ -4,15 +4,17 @@ const cors = require('cors');
 
 const controller = express();
 controller.use(express.json());
+controller.use(cors());
 
 // create a new property
 controller.post('/newproperty', (req, res) => {
-    const { id, name, type } = req.body;
+    const { id, name, type, priceUSD } = req.body;
 
     const newProperty = new Property({
         id,
         name,
         type,
+        priceUSD,
     });
 
     newProperty

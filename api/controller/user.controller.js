@@ -4,12 +4,11 @@ const cors = require('cors');
 
 const controller = express();
 controller.use(express.json());
+controller.use(cors());
 
 // get all users
-controller.get('/users', cors(), (req, res) => {
-    console.log('what the fuck');
-
-    User.find()
+controller.get('/users', cors(), async (req, res) => {
+    await User.find()
         .then((users) => {
             console.log('All users:', users);
             res.status(200).json(users);
@@ -21,7 +20,7 @@ controller.get('/users', cors(), (req, res) => {
 });
 
 // create a new user
-controller.post('/newuser', (req, res) => {
+controller.post('/newuser', async (req, res) => {
     const { id, name, email, age, customers } = req.body;
 
     const newUser = new User({
@@ -32,7 +31,7 @@ controller.post('/newuser', (req, res) => {
         customers,
     });
 
-    newUser
+    await newUser
         .save()
         .then((user) => {
             console.log('user saved successfully');

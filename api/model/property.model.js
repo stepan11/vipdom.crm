@@ -16,6 +16,10 @@ const propertySchema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        priceUSD: {
+            type: Number,
+            required: true,
+        },
     },
     {
         timestamps: true,
