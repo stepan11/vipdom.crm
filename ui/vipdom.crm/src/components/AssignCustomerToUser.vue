@@ -12,7 +12,7 @@
                     required
                 >
                     <option
-                        value="user.id"
+                        :value="user.id"
                         v-for="user in users"
                         :key="user.id"
                     >
@@ -31,7 +31,7 @@
                     required
                 >
                     <option
-                        value="customer.id"
+                        :value="customer.id"
                         v-for="customer in customers"
                         :key="customer.id"
                     >
@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import SuccessModal from './SuccessModal.vue';
+import axios from "axios";
+import SuccessModal from "./SuccessModal.vue";
 
 export default {
     components: {
@@ -65,37 +65,38 @@ export default {
             customers: [],
             users: [],
             customerAndUserData: {
-                userId: '',
-                customerId: '',
+                userId: "",
+                customerId: "",
             },
             showModal: false,
         };
     },
     created() {
         axios
-            .get('http://localhost:3000/customers')
+            .get("http://localhost:3000/customers")
             .then((response) => {
                 this.customers = response.data;
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             });
 
         axios
-            .get('http://localhost:3000/users')
+            .get("http://localhost:3000/users")
             .then((response) => {
                 this.users = response.data;
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             });
     },
     methods: {
         async assignCustomerToUser() {
+            console.log(this.customerAndUserData);
             await axios
                 .post(
-                    'http://localhost:3000/customerAndUserData',
-                    this.propertyData
+                    "http://localhost:3000/addcustomertouser",
+                    this.customerAndUserData
                 )
                 .then((response) => {
                     console.log(response);
@@ -105,8 +106,8 @@ export default {
                 });
 
             // Clear form fields after successful submission
-            this.customers = '';
-            this.users = '';
+            this.customers = "";
+            this.users = "";
 
             // Open success modal
             this.showModal = true;

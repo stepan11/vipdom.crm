@@ -61,8 +61,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import SuccessModal from './SuccessModal.vue';
+import axios from "axios";
+import SuccessModal from "./SuccessModal.vue";
 
 export default {
     components: {
@@ -71,10 +71,10 @@ export default {
     data() {
         return {
             customerData: {
-                id: '',
-                name: '',
-                email: '',
-                type: '',
+                id: "",
+                name: "",
+                email: "",
+                type: "",
             },
             showModal: false,
         };
@@ -82,7 +82,7 @@ export default {
     methods: {
         async createCustomer() {
             await axios
-                .post('http://localhost:3000/newcustomer', this.customerData)
+                .post("http://localhost:3000/newcustomer", this.customerData)
                 .then((response) => {
                     console.log(response);
                 })
@@ -91,10 +91,10 @@ export default {
                 });
 
             // Clear form fields after successful submission
-            this.customerData.name = '';
-            this.customerData.type = '';
-            this.customerData.id = '';
-            this.customerData.email = '';
+            this.customerData.name = "";
+            this.customerData.type = "";
+            this.customerData.id = "";
+            this.customerData.email = "";
 
             // Open success modal
             this.showModal = true;
@@ -138,7 +138,7 @@ export default {
 
 .input {
     width: 100%;
-    padding: 8px;
+    padding: 8px 0;
     border: 1px solid #ccc;
     border-radius: 3px;
 }

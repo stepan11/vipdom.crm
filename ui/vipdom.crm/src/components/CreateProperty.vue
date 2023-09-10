@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import SuccessModal from './SuccessModal.vue';
+import axios from "axios";
+import SuccessModal from "./SuccessModal.vue";
 
 export default {
     components: {
@@ -72,10 +72,10 @@ export default {
     data() {
         return {
             propertyData: {
-                id: '',
-                name: '',
-                type: '',
-                priceUSD: '',
+                id: "",
+                name: "",
+                type: "",
+                priceUSD: "",
             },
             showModal: false,
         };
@@ -83,7 +83,7 @@ export default {
     methods: {
         async createProperty() {
             await axios
-                .post('http://localhost:3000/newproperty', this.propertyData)
+                .post("http://localhost:3000/newproperty", this.propertyData)
                 .then((response) => {
                     console.log(response);
                 })
@@ -92,10 +92,10 @@ export default {
                 });
 
             // Clear form fields after successful submission
-            this.propertyData.name = '';
-            this.propertyData.type = '';
-            this.propertyData.id = '';
-            this.propertyData.priceUSD = '';
+            this.propertyData.name = "";
+            this.propertyData.type = "";
+            this.propertyData.id = "";
+            this.propertyData.priceUSD = "";
 
             // Open success modal
             this.showModal = true;
