@@ -36,29 +36,32 @@
                     Price:
                     {{
                         property.priceUSD
-                            ? new Intl.NumberFormat('en-US', {
-                                  style: 'currency',
-                                  currency: 'USD',
+                            ? new Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
                                   maximumFractionDigits: 0,
                               }).format(property.priceUSD)
-                            : 'not selected'
+                            : "not selected"
                     }}
                 </p>
             </li>
         </ul>
     </div>
+    <router-veiw></router-veiw>
+    <router-link to="/">Home</router-link>
+    <router-link to="/about">About</router-link>
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue';
-import CreateProperty from '@/components/CreateProperty.vue';
-import CreateCustomer from '@/components/CreateCustomer.vue';
-import CreateUser from '@/components/CreateUser.vue';
-import AssignCustomerToUser from './components/AssignCustomerToUser.vue';
-import axios from 'axios';
+import CreateProperty from "@/components/CreateProperty.vue";
+import CreateCustomer from "@/components/CreateCustomer.vue";
+import CreateUser from "@/components/CreateUser.vue";
+import AssignCustomerToUser from "./components/AssignCustomerToUser.vue";
+import axios from "axios";
 
 export default {
-    name: 'App',
+    name: "App",
     components: {
         // HelloWorld,
         CreateProperty,
@@ -72,50 +75,50 @@ export default {
             users: [],
             properties: [],
             propertyData: {
-                id: '',
-                name: '',
-                type: '',
-                priceUSD: '',
+                id: "",
+                name: "",
+                type: "",
+                priceUSD: "",
             },
             customerData: {
                 id: 33,
-                name: 'Stephanio123123',
-                email: 'v894621323423312335sdm@ml.com',
-                type: 'buyer',
+                name: "Stephanio123123",
+                email: "v894621323423312335sdm@ml.com",
+                type: "buyer",
             },
             showModal: false,
         };
     },
     async created() {
         await axios
-            .get('http://localhost:3000/customers')
+            .get("http://localhost:3000/customers")
             .then((response) => {
                 this.customers = response.data;
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             });
         await axios
-            .get('http://localhost:3000/users')
+            .get("http://localhost:3000/users")
             .then((response) => {
                 this.users = response.data;
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             });
         await axios
-            .get('http://localhost:3000/properties')
+            .get("http://localhost:3000/properties")
             .then((response) => {
                 this.properties = response.data;
             })
             .catch((error) => {
-                console.error('Error fetching data:', error);
+                console.error("Error fetching data:", error);
             });
     },
     methods: {
         async sendRequest() {
             await axios
-                .post('http://localhost:3000/newcustomer', this.customerData)
+                .post("http://localhost:3000/newcustomer", this.customerData)
                 .then((response) => {
                     console.log(response);
                 })
@@ -125,7 +128,7 @@ export default {
         },
         async createProperty() {
             await axios
-                .post('http://localhost:3000/newproperty', this.propertyData)
+                .post("http://localhost:3000/newproperty", this.propertyData)
                 .then((response) => {
                     console.log(response);
                 })
@@ -134,10 +137,10 @@ export default {
                 });
 
             // Clear form fields after successful submission
-            this.propertyData.name = '';
-            this.propertyData.type = '';
-            this.propertyData.id = '';
-            this.propertyData.priceUSD = '';
+            this.propertyData.name = "";
+            this.propertyData.type = "";
+            this.propertyData.id = "";
+            this.propertyData.priceUSD = "";
 
             // Open success modal
             this.showModal = true;

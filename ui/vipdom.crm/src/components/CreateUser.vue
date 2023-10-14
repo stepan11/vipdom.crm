@@ -132,8 +132,9 @@ export default {
 }
 
 .input {
-    width: 100%;
+    width: 90%;
     padding: 8px;
+    padding-right: 0;
     border: 1px solid #ccc;
     border-radius: 3px;
 }
