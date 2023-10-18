@@ -2,9 +2,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 // import router from "./router";
 import { createRouter, createWebHistory } from "vue-router";
-import HelloWorld from "./App.vue";
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
+import MainPage from "./views/MainPage.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -20,9 +20,9 @@ const router = createRouter({
             component: AboutView,
         },
         {
-            path: "/hellowrorld",
-            name: "HelloWorld",
-            component: HelloWorld,
+            path: "/main",
+            name: "Main Page",
+            component: MainPage,
         },
     ],
 });
