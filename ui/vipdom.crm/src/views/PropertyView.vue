@@ -1,39 +1,39 @@
 <template>
     <div class="about">
-        <h1>This is users page</h1>
-        <CreateUser />
+        <h1>This is properties page</h1>
+        <CreateProperty />
     </div>
 
-    <!-- Retrieve all users -->
+    <!-- Retrieve all properties -->
     <div>
-        <h1>All users</h1>
+        <h1>All properties</h1>
         <ul>
-            <li v-for="user in users" :key="user._id">
-                {{ user.name }} ID : {{ user._id }}
+            <li v-for="property in properties" :key="property._id">
+                {{ property.name }} ID : {{ property._id }}
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-import CreateUser from "../components/CreateUser.vue";
+import CreateProperty from "../components/CreateProperty.vue";
 import axios from "axios";
 
 export default {
     name: "AboutView",
     components: {
-        CreateUser,
+        CreateProperty,
     },
     data() {
         return {
-            users: [],
+            properties: [],
         };
     },
     async created() {
         await axios
-            .get("http://localhost:3000/users")
+            .get("http://localhost:3000/properties")
             .then((response) => {
-                this.users = response.data;
+                this.properties = response.data;
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
