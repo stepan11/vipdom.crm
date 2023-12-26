@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // define a mongoose user schema
 const userSchema = new mongoose.Schema(
@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        password: {
+            type: String,
+            required: true,
+            minLength: 6,
+            maxLength: 30,
+        },
         age: {
             type: Number,
             required: false,
@@ -31,6 +37,12 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-const User = mongoose.model('User', userSchema);
+userSchema.pre("save", async function (next) {
+    const user = this;
+
+    next();
+});
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
