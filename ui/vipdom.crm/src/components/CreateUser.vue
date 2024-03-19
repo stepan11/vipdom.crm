@@ -36,6 +36,17 @@
             </div>
 
             <div class="form-group">
+                <label class="label" for="email">Password:</label>
+                <input
+                    class="input"
+                    v-model="userData.password"
+                    type="password"
+                    id="password"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
                 <label class="label" for="age">Age:</label>
                 <input
                     class="input"
@@ -69,6 +80,7 @@ export default {
                 id: "",
                 name: "",
                 email: "",
+                password: "",
                 age: "",
             },
             showModal: false,
@@ -88,6 +100,7 @@ export default {
             // Clear form fields after successful submission
             this.userData.name = "";
             this.userData.email = "";
+            this.userData.password = "";
             this.userData.id = "";
             this.userData.age = "";
 
