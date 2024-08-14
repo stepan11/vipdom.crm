@@ -4,7 +4,8 @@
         <router-link to="/user">User</router-link> |
         <router-link to="/customer">Customer</router-link> |
         <router-link to="/property">Property</router-link> |
-        <router-link to="/main">Main</router-link>
+        <router-link to="/main">Main</router-link> |
+        <router-link to="/login">Login</router-link>
     </nav>
     <router-view />
 </template>

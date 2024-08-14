@@ -47,7 +47,7 @@
 
         <success-modal v-if="showModal" @close="closeModal">
             <template #header> Success! </template>
-            <template #body> Property created successfully. </template>
+            <template #body> Customer assigned to user successfully. </template>
         </success-modal>
     </div>
 </template>
@@ -118,6 +118,7 @@ export default {
     },
 };
 </script>
+
 <style scoped>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;

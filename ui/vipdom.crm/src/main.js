@@ -7,6 +7,7 @@ import AboutView from "./views/AboutView.vue";
 import CustomerView from "./views/CustomerView.vue";
 import PropertyView from "./views/PropertyView.vue";
 import MainPage from "./views/MainPage.vue";
+import LoginView from "./views/LoginView.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -35,6 +36,11 @@ const router = createRouter({
             path: "/main",
             name: "Main Page",
             component: MainPage,
+        },
+        {
+            path: "/login",
+            name: "Login Page",
+            component: LoginView,
         },
     ],
 });

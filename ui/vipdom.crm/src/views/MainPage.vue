@@ -5,10 +5,23 @@
     <CreateCustomer />
     <CreateUser />
     <AssignCustomerToUser />
+    <SearchComponent />
 
     <!-- Retrieve all customers -->
     <div>
         <h1>All customers</h1>
+        <table class="form-container">
+            <tr
+                v-for="customer in customers"
+                :key="customer._id"
+                class="form-group"
+            >
+                <td>
+                    {{ customer.name }}
+                </td>
+                <td>ID : {{ customer._id }}</td>
+            </tr>
+        </table>
         <ul>
             <li v-for="customer in customers" :key="customer._id">
                 {{ customer.name }} ID : {{ customer._id }}
@@ -19,6 +32,12 @@
     <!-- Retrieve all users -->
     <div>
         <h1>All users</h1>
+        <table class="form-container">
+            <tr v-for="user in users" :key="user._id">
+                <td>{{ user.name }}</td>
+                <td>ID : {{ user._id }}</td>
+            </tr>
+        </table>
         <ul>
             <li v-for="user in users" :key="user._id">
                 {{ user.name }} ID : {{ user._id }}
@@ -29,6 +48,26 @@
     <!-- Retrieve all properties -->
     <div>
         <h1>All properties</h1>
+        <table class="form-container">
+            <tr v-for="property in properties" :key="property._id">
+                <td>{{ property.name }}</td>
+                <td>ID : {{ property._id }}</td>
+                <td>
+                    <p>
+                        Price:
+                        {{
+                            property.priceUSD
+                                ? new Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                      maximumFractionDigits: 0,
+                                  }).format(property.priceUSD)
+                                : "not selected"
+                        }}
+                    </p>
+                </td>
+            </tr>
+        </table>
         <ul>
             <li v-for="property in properties" :key="property._id">
                 {{ property.name }} ID : {{ property._id }}
@@ -55,6 +94,7 @@ import CreateProperty from "../components/CreateProperty.vue";
 import CreateCustomer from "../components/CreateCustomer.vue";
 import CreateUser from "../components/CreateUser.vue";
 import AssignCustomerToUser from "../components/AssignCustomerToUser.vue";
+import SearchComponent from "../components/SearchComponent.vue";
 import axios from "axios";
 
 export default {
@@ -65,6 +105,7 @@ export default {
         CreateCustomer,
         CreateUser,
         AssignCustomerToUser,
+        SearchComponent,
     },
     data() {
         return {
@@ -160,7 +201,7 @@ export default {
 }
 
 .form-container {
-    max-width: 350px;
+    max-width: 750px;
     margin: 0 auto;
     padding: 20px;
     border: 3px solid #147d6d;
@@ -199,5 +240,12 @@ export default {
 
 .submit-button:hover {
     background-color: #0056b3;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+    width: 50%;
 }
 </style>
